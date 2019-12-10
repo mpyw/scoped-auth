@@ -17,7 +17,7 @@ class ScopedEloquentUserProvider extends EloquentUserProvider
         $instance = $query->getModel();
 
         if ($instance instanceof AuthScopable) {
-            $query = $instance->scopeForAuthentication($query) ?? $query;
+            $query = $instance->scopeForAuthentication($query);
         }
 
         return $query;

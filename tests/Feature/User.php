@@ -32,10 +32,10 @@ class User extends Model implements AuthScopable, UserContract
     /**
      * Add a scope for authentication.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder      $query
-     * @return null|\Illuminate\Database\Eloquent\Builder
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeForAuthentication(Builder $query): ?Builder
+    public function scopeForAuthentication(Builder $query): Builder
     {
         return $query->where('active', 1);
     }
