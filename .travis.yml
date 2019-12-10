@@ -9,6 +9,7 @@ php:
   - 7.1
   - 7.2
   - 7.3
+  - 7.4
 
 cache:
   directories:
@@ -27,7 +28,9 @@ before_script:
   - mkdir -p build/logs
 
 script:
-  - phpdbg -qrr vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+  - |
+    php -r 'exit(!version_compare(PHP_VERSION, "7.4", ">="));' && CMD=(php) || CMD=(phpdbg -qrr)
+    "${CMD[@]}" vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_success:
   - travis_retry php vendor/bin/php-coveralls -v
