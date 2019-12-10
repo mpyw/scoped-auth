@@ -46,3 +46,13 @@ use Illuminate\Support\Facades\Auth;
 
 $user = Auth::user(); // Only include users where "active" is 1
 ```
+
+As a by-product, you can also run scope queries based on the standard Eloquent way.
+
+```php
+$user = User::where('email', 'xxx@example.com')->forAuthentication()->firstOrFail();
+```
+
+```php
+$user = User::where('email', 'xxx@example.com')->scopes(['forAuthentication'])->fisrtOrFail();
+```
