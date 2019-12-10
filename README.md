@@ -32,7 +32,7 @@ class User extends Model implements UserContract, AuthScopable
 {
     use Authenticatable;
 
-    public function scopeForAuthentication(Builder $query) : ?Builder
+    public function scopeForAuthentication(Builder $query): Builder
     {
         return $query->where('active', 1);
     }
