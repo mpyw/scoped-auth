@@ -2,6 +2,7 @@
 
 namespace Mpyw\ScopedAuth\Tests\Feature;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -32,7 +33,7 @@ class BasicTest extends TestCase
         )');
     }
 
-    public function testSuccess(): void
+    public function testAttemptSuccess(): void
     {
         $user = User::create([
             'id' => 123,
@@ -45,7 +46,7 @@ class BasicTest extends TestCase
         $this->assertTrue(Auth::user()->is($user));
     }
 
-    public function testFailure(): void
+    public function testAttemptFailure(): void
     {
         $user = User::create([
             'id' => 123,
@@ -56,5 +57,30 @@ class BasicTest extends TestCase
 
         $this->assertFalse(Auth::attempt(['email' => 'u123@example.com', 'password' => 'p123']));
         $this->assertNull(Auth::user());
+    }
+
+    public function testManualScopeQuerySuccess(): void
+    {
+        $user = User::create([
+            'id' => 123,
+            'active' => true,
+            'email' => 'u123@example.com',
+            'password' => Hash::make('p123'),
+        ]);
+
+        $this->assertTrue(User::where('email', 'u123@example.com')->forAuthentication()->firstOrFail()->is($user));
+    }
+
+    public function testManualScopeQueryFailure(): void
+    {
+        $user = User::create([
+            'id' => 123,
+            'active' => false,
+            'email' => 'u123@example.com',
+            'password' => Hash::make('p123'),
+        ]);
+
+        $this->expectException(ModelNotFoundException::class);
+        User::where('email', 'u123@example.com')->forAuthentication()->firstOrFail();
     }
 }
