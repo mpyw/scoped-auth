@@ -47,6 +47,20 @@ use Illuminate\Support\Facades\Auth;
 $user = Auth::user(); // Only include users where "active" is 1
 ```
 
+Note that you can reuse another existing scope.
+
+```php
+public function scopeActive(Builder $query): Builder
+{
+    return $query->where('active', 1);
+}
+
+public function scopeForAuthentication(Builder $query): Builder
+{
+    return $this->scopeActive($query);
+}
+```
+
 As a by-product, you can also run scope queries based on the standard Eloquent way.
 
 ```php
