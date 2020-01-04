@@ -1,4 +1,8 @@
-# Scoped Auth [![Build Status](https://travis-ci.com/mpyw/scoped-auth.svg?branch=master)](https://travis-ci.com/mpyw/scoped-auth) [![Coverage Status](https://coveralls.io/repos/github/mpyw/scoped-auth/badge.svg?branch=master)](https://coveralls.io/github/mpyw/scoped-auth?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mpyw/scoped-auth/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mpyw/scoped-auth/?branch=master)
+# Scoped Auth
+
+[![Build Status](https://travis-ci.com/mpyw/scoped-auth.svg?branch=master)](https://travis-ci.com/mpyw/scoped-auth)
+[![Coverage Status](https://coveralls.io/repos/github/mpyw/scoped-auth/badge.svg?branch=master)](https://coveralls.io/github/mpyw/scoped-auth?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mpyw/scoped-auth/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mpyw/scoped-auth/?branch=master)
 
 Apply specific scope for user authentication.
 
@@ -11,6 +15,14 @@ Apply specific scope for user authentication.
 
 ```bash
 composer require mpyw/scoped-auth
+```
+
+## Testing
+
+Via [PHPUnit](https://phpunit.de/)
+
+```bash
+$ composer test
 ```
 
 ## Usage
@@ -70,3 +82,19 @@ $user = User::where('email', 'xxx@example.com')->forAuthentication()->firstOrFai
 ```php
 $user = User::where('email', 'xxx@example.com')->scopes(['forAuthentication'])->fisrtOrFail();
 ```
+
+## Standards
+
+- [PSR-1: Basic Coding Standard](https://www.php-fig.org/psr/psr-1/)
+- [PSR-2: Coding Style Guide](https://www.php-fig.org/psr/psr-2/)
+- [PSR-4: Autoloader](https://www.php-fig.org/psr/psr-4/)
+- [Semantic Versioning 2.0.0](https://semver.org/)
+
+## Credits
+
+- [mpyw](https://github.com/mpyw)
+- [All Contributors](../../contributors)
+
+## License
+
+Licensed under the MIT License. See [License File](LICENSE.md) for more information.
