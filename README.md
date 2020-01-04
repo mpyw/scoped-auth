@@ -82,7 +82,7 @@ $user = User::where('email', 'xxx@example.com')->forAuthentication()->firstOrFai
 ```
 
 ```php
-$user = User::where('email', 'xxx@example.com')->scopes(['forAuthentication'])->fisrtOrFail();
+$user = User::where('email', 'xxx@example.com')->scopes(['forAuthentication'])->firstOrFail();
 ```
 
 ## Standards
