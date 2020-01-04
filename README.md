@@ -16,7 +16,7 @@ Apply specific scope for user authentication.
 Via [Composer](https://getcomposer.org/)
 
 ```bash
-composer require mpyw/scoped-auth
+$ composer require mpyw/scoped-auth
 ```
 
 ## Testing
