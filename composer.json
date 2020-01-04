@@ -39,5 +39,8 @@
                 "Mpyw\\ScopedAuth\\ScopedAuthServiceProvider"
             ]
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
