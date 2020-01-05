@@ -29,24 +29,19 @@ $ composer test
 
 ## Usage
 
-Implement **AuthScopable** contract on your Authenticatable Eloquent Model.
+Implement **scopeForAuthentication** method on your Authenticatable Eloquent Model.
 
 ```php
 <?php
 
 namespace App;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable as UserContract;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Mpyw\ScopedAuth\AuthScopable;
 
-class User extends Model implements UserContract, AuthScopable
+class User extends Authenticatable
 {
-    use Authenticatable;
-
-    public function scopeForAuthentication(Builder $query): Builder
+    public function scopeForAuthentication($query)
     {
         return $query->where('active', 1);
     }
@@ -64,12 +59,12 @@ $user = Auth::user(); // Only include users where "active" is 1
 Note that you can reuse another existing scope.
 
 ```php
-public function scopeActive(Builder $query): Builder
+public function scopeActive($query)
 {
     return $query->where('active', 1);
 }
 
-public function scopeForAuthentication(Builder $query): Builder
+public function scopeForAuthentication($query)
 {
     return $this->scopeActive($query);
 }
@@ -79,10 +74,6 @@ As a by-product, you can also run scope queries based on the standard Eloquent w
 
 ```php
 $user = User::where('email', 'xxx@example.com')->forAuthentication()->firstOrFail();
-```
-
-```php
-$user = User::where('email', 'xxx@example.com')->scopes(['forAuthentication'])->firstOrFail();
 ```
 
 ## Standards
