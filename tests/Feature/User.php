@@ -6,7 +6,6 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Mpyw\ScopedAuth\AuthScopable;
 
 /**
  * Class User
@@ -15,7 +14,7 @@ use Mpyw\ScopedAuth\AuthScopable;
  * @property-read bool $active
  * @method static static create(array $attributes)
  */
-class User extends Model implements AuthScopable, UserContract
+class User extends Model implements UserContract
 {
     use Authenticatable;
 
@@ -26,8 +25,12 @@ class User extends Model implements AuthScopable, UserContract
         'id' => 'int',
         'active' => 'bool',
     ];
-    protected $attributes = ['active' => false];
-    protected $guarded = [];
+    protected $attributes = [
+        'active' => false
+    ];
+    protected $guarded = [
+        //
+    ];
 
     /**
      * Add a scope for authentication.
