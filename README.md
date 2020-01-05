@@ -37,7 +37,6 @@ Implement **scopeForAuthentication** method on your Authenticatable Eloquent Mod
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Mpyw\ScopedAuth\AuthScopable;
 
 class User extends Authenticatable
 {
