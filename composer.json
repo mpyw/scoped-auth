@@ -43,5 +43,9 @@
     "config": {
         "sort-packages": true
     },
-    "scripts": { "test": [ "phpunit" ] }
+    "scripts": {
+        "test": [
+            "phpunit"
+        ]
+    }
 }
