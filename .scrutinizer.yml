@@ -10,7 +10,7 @@ filter:
 build:
 
   environment:
-    php: '7.4'
+    php: '8.0'
 
   dependencies:
     before:
