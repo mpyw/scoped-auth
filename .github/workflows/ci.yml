@@ -24,8 +24,8 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: xdebug
 
-      - run: composer require "laravel/framework:${{ matrix.lib.laravel }}" "orchestra/testbench:${{ matrix.lib.testbench }}" --dev --no-update ${{ matrix.lib.composer_flags }}
-      - run: composer require "phpunit/phpunit" --dev --no-update
+      - run: composer require "laravel/framework:${{ matrix.lib.laravel }}" --no-update ${{ matrix.lib.composer_flags }}
+      - run: composer require "phpunit/phpunit" "orchestra/testbench:${{ matrix.lib.testbench }}" --dev --no-update
       - run: composer update ${{ matrix.lib.composer_flags }}
       - run: mkdir -p build/logs
       - run: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
