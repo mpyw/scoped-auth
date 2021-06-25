@@ -1,6 +1,6 @@
 # Scoped Auth
 
-[![Build Status](https://travis-ci.com/mpyw/scoped-auth.svg?branch=master)](https://travis-ci.com/mpyw/scoped-auth)
+[![Build Status](https://github.com/mpyw/scoped-auth/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/mpyw/scoped-auth/actions)
 [![Coverage Status](https://coveralls.io/repos/github/mpyw/scoped-auth/badge.svg?branch=master)](https://coveralls.io/github/mpyw/scoped-auth?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mpyw/scoped-auth/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mpyw/scoped-auth/?branch=master)
 
@@ -8,8 +8,8 @@ Apply specific scope for user authentication.
 
 ## Requirements
 
-- PHP: ^7.3 || ^8.0
-- Laravel: ^6.0 || ^7.0 || ^8.0
+- PHP: `^7.3 || ^8.0`
+- Laravel: `^6.0 || ^7.0 || ^8.0`
 
 ## Installing
 
