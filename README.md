@@ -19,6 +19,79 @@ Via [Composer](https://getcomposer.org/)
 $ composer require mpyw/scoped-auth
 ```
 
+### For [Fortify](https://github.com/laravel/fortify) users
+
+Default Fortify's [`RedirectIfTwoFactorAuthenticatable`](https://github.com/laravel/fortify/blob/7da6504f5f8a5fe6854dedaffc81ac497194ba56/src/Actions/RedirectIfTwoFactorAuthenticatable.php#L89-L91) implementation directly uses internal `Model` under `UserProvider`, however, [the Laravel author won't be willing to fix it for whatever reason](https://github.com/laravel/fortify/pull/318#issuecomment-939763672). So we need to configure Fortify like this:
+
+<details>
+<summary>CustomFortifyAuthenticator.php</summary>
+
+```php
+<?php
+
+namespace App\Auth;
+
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\Auth\UserProvider;
+use Laravel\Fortify\Fortify;
+
+class CustomFortifyAuthenticator
+{
+    private const PASSWORD_NAME = 'password';
+
+    /**
+     * @var UserProvider
+     */
+    private $provider;
+
+    public function __construct(StatefulGuard $guard)
+    {
+        // Assert `StatefulGuard` has `getProvider()` which is not declared in the contract
+        assert(method_exists($guard, 'getProvider'));
+        $provider = $guard->getProvider();
+
+        assert($provider instanceof UserProvider);
+        $this->provider = $provider;
+    }
+
+    public function __invoke(Request $request): ?Authenticatable
+    {
+        $user = $this->provider->retrieveByCredentials([
+            Fortify::username() => $request->input(Fortify::username()),
+        ]);
+
+        return $user && $this->provider->validateCredentials($user, [
+            self::PASSWORD_NAME => $request->input(self::PASSWORD_NAME),
+        ]) ? $user : null;
+    }
+}
+```
+</details>
+
+<details>
+<summary>AuthServiceProvider.php</summary>
+
+```php
+<?php
+
+namespace App\Providers;
+
+use App\Auth\CustomFortifyAuthenticator;
+use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Fortify;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    public function boot(CustomFortifyAuthenticator $authenticator): void
+    {
+        Fortify::authenticateUsing($authenticator);
+    }
+}
+```
+</details>
+
 ## Testing
 
 Via [PHPUnit](https://phpunit.de/)
