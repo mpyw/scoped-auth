@@ -3,14 +3,14 @@
 namespace Mpyw\ScopedAuth;
 
 use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Database\Eloquent\Builder;
 
 class ScopedEloquentUserProvider extends EloquentUserProvider
 {
     /**
-     * @param  null|\Illuminate\Database\Eloquent\Model $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param null|\Illuminate\Database\Eloquent\Model $model
      */
-    public function newModelQuery($model = null)
+    public function newModelQuery($model = null): Builder
     {
         $query = parent::newModelQuery($model);
 

@@ -9,12 +9,7 @@ use Illuminate\Support\ServiceProvider;
 
 class ScopedAuthServiceProvider extends ServiceProvider
 {
-    /** @noinspection PhpDocMissingThrowsInspection */
-
-    /**
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
         /* @noinspection PhpUnhandledExceptionInspection */
         $this->app->resolved(AuthManager::class)
@@ -22,11 +17,7 @@ class ScopedAuthServiceProvider extends ServiceProvider
             : $this->app->afterResolving(AuthManager::class, Closure::fromCallable([$this, 'overrideEloquentUserProvider']));
     }
 
-    /**
-     * @param  \Illuminate\Auth\AuthManager $auth
-     * @return void
-     */
-    protected function overrideEloquentUserProvider(AuthManager $auth)
+    protected function overrideEloquentUserProvider(AuthManager $auth): void
     {
         $auth->provider('eloquent', function (Container $app, array $config) {
             return $app->make(ScopedEloquentUserProvider::class, [
