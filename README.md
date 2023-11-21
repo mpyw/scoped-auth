@@ -21,7 +21,8 @@ $ composer require mpyw/scoped-auth
 
 ### For [Fortify](https://github.com/laravel/fortify) users
 
-Default Fortify's [`RedirectIfTwoFactorAuthenticatable`](https://github.com/laravel/fortify/blob/7da6504f5f8a5fe6854dedaffc81ac497194ba56/src/Actions/RedirectIfTwoFactorAuthenticatable.php#L89-L91) implementation directly uses internal `Model` under `UserProvider`, however, [the Laravel author won't be willing to fix it for whatever reason](https://github.com/laravel/fortify/pull/393). So we need to configure Fortify like this:
+> [!WARNING]
+> Default Fortify's [`RedirectIfTwoFactorAuthenticatable`](https://github.com/laravel/fortify/blob/7da6504f5f8a5fe6854dedaffc81ac497194ba56/src/Actions/RedirectIfTwoFactorAuthenticatable.php#L89-L91) implementation directly uses internal `Model` under `UserProvider`, however, [the Laravel author won't be willing to fix it for whatever reason](https://github.com/laravel/fortify/pull/393). So we need to configure Fortify like this:
 
 <details>
 <summary>CustomFortifyAuthenticator.php</summary>
@@ -41,10 +42,7 @@ class CustomFortifyAuthenticator
 {
     private const PASSWORD_NAME = 'password';
 
-    /**
-     * @var UserProvider
-     */
-    private $provider;
+    private readonly UserProvider $provider;
 
     public function __construct(StatefulGuard $guard)
     {
