@@ -9,7 +9,12 @@
             "email": "ryosuke_i_628@yahoo.co.jp"
         }
     ],
-    "keywords": ["laravel", "illuminate", "auth", "scope"],
+    "keywords": [
+        "laravel",
+        "illuminate",
+        "auth",
+        "scope"
+    ],
     "autoload": {
         "psr-4": {
             "Mpyw\\ScopedAuth\\": "src/"
@@ -22,10 +27,10 @@
     },
     "require": {
         "php": "^8.0",
-        "illuminate/auth": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/database": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/contracts": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/support": "^9.0 || ^10.0 || ^11.0"
+        "illuminate/auth": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/database": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/contracts": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/support": "^9.0 || ^10.0 || ^11.0 || ^12.0"
     },
     "require-dev": {
         "orchestra/testbench": "*",
