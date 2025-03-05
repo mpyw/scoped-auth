@@ -92,6 +92,9 @@ class AuthServiceProvider extends ServiceProvider
 ```
 </details>
 
+> [!NOTE]
+> Re-submitted PR [laravel/fortify#582](https://github.com/laravel/fortify/pull/582) has been already merged, but it's not released yet at 2025-03-05. Once it's released, you can remove this workaround.
+
 ## Testing
 
 Via [PHPUnit](https://phpunit.de/)
