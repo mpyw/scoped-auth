@@ -23,11 +23,15 @@ $ composer require mpyw/scoped-auth
 
 ### For [Fortify](https://github.com/laravel/fortify) users
 
-> [!WARNING]
-> Default Fortify's [`RedirectIfTwoFactorAuthenticatable`](https://github.com/laravel/fortify/blob/7da6504f5f8a5fe6854dedaffc81ac497194ba56/src/Actions/RedirectIfTwoFactorAuthenticatable.php#L89-L91) implementation directly uses internal `Model` under `UserProvider`, however, [the Laravel author won't be willing to fix it for whatever reason](https://github.com/laravel/fortify/pull/393). So we need to configure Fortify like this:
+> [!NOTE]
+> The issue where `RedirectIfTwoFactorAuthenticatable` bypassed custom `UserProvider` implementations has been fixed in **Fortify v1.33.0** ([PR #582](https://github.com/laravel/fortify/pull/582)). If you're using Fortify v1.33.0 or later, no workaround is needed.
 
 <details>
-<summary>CustomFortifyAuthenticator.php</summary>
+<summary>Workaround for older versions (&lt; v1.33.0)</summary>
+
+Default Fortify's [`RedirectIfTwoFactorAuthenticatable`](https://github.com/laravel/fortify/blob/7da6504f5f8a5fe6854dedaffc81ac497194ba56/src/Actions/RedirectIfTwoFactorAuthenticatable.php#L89-L91) implementation directly uses internal `Model` under `UserProvider`. So we need to configure Fortify like this:
+
+**CustomFortifyAuthenticator.php**
 
 ```php
 <?php
@@ -68,10 +72,8 @@ class CustomFortifyAuthenticator
     }
 }
 ```
-</details>
 
-<details>
-<summary>AuthServiceProvider.php</summary>
+**AuthServiceProvider.php**
 
 ```php
 <?php
@@ -90,10 +92,8 @@ class AuthServiceProvider extends ServiceProvider
     }
 }
 ```
-</details>
 
-> [!NOTE]
-> Re-submitted PR [laravel/fortify#582](https://github.com/laravel/fortify/pull/582) has been already merged, but it's not released yet at 2025-03-05. Once it's released, you can remove this workaround.
+</details>
 
 ## Testing
 
